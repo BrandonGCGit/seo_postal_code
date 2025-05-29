@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tucodigopostal.com',
+  site: 'https://seo-postal-code.vercel.app',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
