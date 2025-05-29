@@ -1,0 +1,113 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  jsonLd?: object;
+}
+
+const { title, description, canonical, jsonLd } = Astro.props;
+const currentUrl = new URL(Astro.request.url);
+const canonicalUrl = canonical || currentUrl.href;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CR" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- JSON-LD Structured Data -->
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <header class="bg-white shadow-sm border-b">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="flex items-center">
+            <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-700">
+              Códigos Postales Costa Rica
+            </a>
+          </div>
+          <nav class="hidden md:flex space-x-6">
+            <a href="/" class="text-gray-600 hover:text-gray-900">Inicio</a>
+            <a href="/codigo-postal/san-jose/" class="text-gray-600 hover:text-gray-900">San José</a>
+            <a href="/codigo-postal/alajuela/" class="text-gray-600 hover:text-gray-900">Alajuela</a>
+            <a href="/codigo-postal/cartago/" class="text-gray-600 hover:text-gray-900">Cartago</a>
+            <a href="/codigo-postal/heredia/" class="text-gray-600 hover:text-gray-900">Heredia</a>
+            <a href="/codigo-postal/guanacaste/" class="text-gray-600 hover:text-gray-900">Guanacaste</a>
+            <a href="/codigo-postal/puntarenas/" class="text-gray-600 hover:text-gray-900">Puntarenas</a>
+            <a href="/codigo-postal/limon/" class="text-gray-600 hover:text-gray-900">Limón</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <slot />
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Códigos Postales Costa Rica</h3>
+            <p class="text-gray-300">
+              Directorio completo de códigos postales de Costa Rica organizados por provincia, cantón y distrito.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Provincias</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/codigo-postal/san-jose/" class="hover:text-white">San José</a></li>
+              <li><a href="/codigo-postal/alajuela/" class="hover:text-white">Alajuela</a></li>
+              <li><a href="/codigo-postal/cartago/" class="hover:text-white">Cartago</a></li>
+              <li><a href="/codigo-postal/heredia/" class="hover:text-white">Heredia</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Más Provincias</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/codigo-postal/guanacaste/" class="hover:text-white">Guanacaste</a></li>
+              <li><a href="/codigo-postal/puntarenas/" class="hover:text-white">Puntarenas</a></li>
+              <li><a href="/codigo-postal/limon/" class="hover:text-white">Limón</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Legal</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li><a href="/politica-de-privacidad/" class="hover:text-white">Política de Privacidad</a></li>
+              <li><a href="/terminos-y-condiciones/" class="hover:text-white">Términos y Condiciones</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+          <p>&copy; 2024 Códigos Postales Costa Rica. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html> 

@@ -1,0 +1,265 @@
+---
+import Layout from '../../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../../components/Breadcrumb.astro';
+import { postalCodes, findDistrict, getDistrictsByCanton } from '../../../../../utils/data';
+import { sanitizeForUrl, getProvinceUrl, getCantonUrl, getWhatsAppShareUrl } from '../../../../../utils/url';
+
+export async function getStaticPaths() {
+  return postalCodes.map(entry => ({
+    params: { 
+      province: sanitizeForUrl(entry.province), 
+      canton: sanitizeForUrl(entry.canton),
+      district: sanitizeForUrl(entry.district)
+    },
+    props: { 
+      provinceName: entry.province, 
+      cantonName: entry.canton,
+      districtName: entry.district,
+      postalCode: entry.postal_code
+    }
+  }));
+}
+
+const { province, canton, district } = Astro.params;
+const { provinceName, cantonName, districtName, postalCode } = Astro.props;
+
+const districtData = findDistrict(provinceName, cantonName, districtName);
+const otherDistricts = getDistrictsByCanton(provinceName, cantonName).filter(d => d.district !== districtName);
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: provinceName, href: getProvinceUrl(provinceName) },
+  { label: cantonName, href: getCantonUrl(provinceName, cantonName) },
+  { label: districtName }
+];
+
+const whatsappUrl = getWhatsAppShareUrl(provinceName, cantonName, districtName, postalCode);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Place", "PostalAddress"],
+  "name": `${districtName}, ${cantonName}, ${provinceName}`,
+  "description": `Código postal ${postalCode} para el distrito de ${districtName} en ${cantonName}, ${provinceName}, Costa Rica`,
+  "url": `https://codigospostales.cr/codigo-postal/${province}/${canton}/${district}/`,
+  "addressLocality": districtName,
+  "addressRegion": provinceName,
+  "addressCountry": "CR",
+  "postalCode": postalCode,
+  "containedInPlace": [
+    {
+      "@type": "AdministrativeArea",
+      "name": cantonName,
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": provinceName,
+        "addressCountry": "CR"
+      }
+    }
+  ]
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": `¿Cuál es el código postal de ${districtName}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `El código postal de ${districtName}, ${cantonName}, ${provinceName} es ${postalCode}.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": `¿Cómo usar el código postal ${postalCode}?`,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Utiliza el código postal ${postalCode} en formularios de envío, direcciones postales y servicios de entrega para asegurar que tu correspondencia llegue correctamente a ${districtName}.`
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title={`Código postal de ${districtName}, ${cantonName}, ${provinceName} - ${postalCode}`}
+  description={`El código postal de ${districtName} en ${cantonName}, ${provinceName} es ${postalCode}. Información completa y actualizada para envíos y correspondencia.`}
+  jsonLd={[jsonLd, faqJsonLd]}
+>
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      Código postal de {districtName}
+    </h1>
+    <p class="text-lg text-gray-600">
+      {districtName}, {cantonName}, {provinceName}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main content -->
+    <div class="lg:col-span-2">
+      <!-- Postal Code Card -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <div class="text-center">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Código Postal
+          </h2>
+          <div class="text-6xl font-bold text-blue-600 mb-4">
+            {postalCode}
+          </div>
+          <div class="text-lg text-gray-600 mb-6">
+            {districtName}, {cantonName}, {provinceName}
+          </div>
+          
+          <!-- Share Button -->
+          <div class="flex justify-center space-x-4">
+            <a 
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+              </svg>
+              Compartir por WhatsApp
+            </a>
+            <button 
+              onclick="navigator.clipboard.writeText('{postalCode}')"
+              class="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+              Copiar código
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Information Section -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">
+          Información del Distrito
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Distrito</dt>
+            <dd class="text-lg text-gray-900">{districtName}</dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Cantón</dt>
+            <dd class="text-lg text-gray-900">
+              <a href={getCantonUrl(provinceName, cantonName)} class="text-blue-600 hover:text-blue-800">
+                {cantonName}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Provincia</dt>
+            <dd class="text-lg text-gray-900">
+              <a href={getProvinceUrl(provinceName)} class="text-blue-600 hover:text-blue-800">
+                {provinceName}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">País</dt>
+            <dd class="text-lg text-gray-900">Costa Rica</dd>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="bg-gray-50 rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-gray-900 mb-4">
+          Preguntas Frecuentes
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">
+              ¿Cuál es el código postal de {districtName}?
+            </h4>
+            <p class="text-gray-700">
+              El código postal de {districtName}, {cantonName}, {provinceName} es <strong>{postalCode}</strong>.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">
+              ¿Cómo usar el código postal {postalCode}?
+            </h4>
+            <p class="text-gray-700">
+              Utiliza el código postal {postalCode} en formularios de envío, direcciones postales y servicios de entrega 
+              para asegurar que tu correspondencia llegue correctamente a {districtName}.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">
+              ¿Es obligatorio usar el código postal en Costa Rica?
+            </h4>
+            <p class="text-gray-700">
+              Aunque no es obligatorio, usar el código postal {postalCode} mejora significativamente la precisión 
+              y velocidad de entrega de correspondencia y paquetes en {districtName}.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+      {otherDistricts.length > 0 && (
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-4">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">
+            Otros Distritos en {cantonName}
+          </h3>
+          <div class="space-y-2 max-h-64 overflow-y-auto">
+            {otherDistricts.map(otherDistrict => (
+              <div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+                <div>
+                  <a 
+                    href={`/codigo-postal/${sanitizeForUrl(provinceName)}/${sanitizeForUrl(cantonName)}/${sanitizeForUrl(otherDistrict.district)}/`}
+                    class="text-sm font-medium text-blue-600 hover:text-blue-800"
+                  >
+                    {otherDistrict.district}
+                  </a>
+                </div>
+                <div class="text-sm font-mono text-gray-600">
+                  {otherDistrict.postal_code}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Copy to clipboard functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('[onclick*="clipboard"]');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', function(this: HTMLElement) {
+        const onclickAttr = this.getAttribute('onclick');
+        if (onclickAttr) {
+          const match = onclickAttr.match(/'([^']+)'/);
+          if (match) {
+            const text = match[1];
+            navigator.clipboard.writeText(text).then(() => {
+              const originalText = this.innerHTML;
+              this.innerHTML = this.innerHTML.replace('Copiar código', 'Copiado!');
+              setTimeout(() => {
+                this.innerHTML = originalText;
+              }, 2000);
+            });
+          }
+        }
+      });
+    });
+  });
+</script> 

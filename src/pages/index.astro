@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SearchBar from '../components/SearchBar.astro';
+import { getProvinces } from '../utils/data';
+import { getProvinceUrl } from '../utils/url';
+
+const provinces = getProvinces();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Códigos Postales Costa Rica",
+  "description": "Directorio completo de códigos postales de Costa Rica organizados por provincia, cantón y distrito",
+  "url": "https://codigospostales.cr",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://codigospostales.cr/buscar?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<Layout 
+  title="Códigos Postales Costa Rica - Directorio Completo"
+  description="Encuentra todos los códigos postales de Costa Rica organizados por provincia, cantón y distrito. Búsqueda rápida y fácil."
+  jsonLd={jsonLd}
+>
+  <div class="text-center mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      Códigos Postales Costa Rica
+    </h1>
+    <p class="text-xl text-gray-600 mb-8">
+      Encuentra el código postal de cualquier distrito de Costa Rica
+    </p>
+    
+    <SearchBar />
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+    {provinces.map(province => (
+      <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+        <h2 class="text-xl font-semibold text-gray-900 mb-3">
+          <a href={getProvinceUrl(province)} class="hover:text-blue-600">
+            {province}
+          </a>
+        </h2>
+        <p class="text-gray-600 mb-4">
+          Explora todos los cantones y distritos de {province}
+        </p>
+        <a 
+          href={getProvinceUrl(province)}
+          class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
+        >
+          Ver códigos postales
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-16 bg-blue-50 rounded-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+      ¿Qué son los códigos postales?
+    </h2>
+    <div class="prose prose-lg text-gray-700">
+      <p class="mb-4">
+        Los códigos postales de Costa Rica son números de 5 dígitos que identifican de manera única cada distrito del país. 
+        Estos códigos facilitan la entrega de correspondencia y paquetes, y son utilizados por servicios postales y de mensajería.
+      </p>
+      <p class="mb-4">
+        El sistema de códigos postales costarricense está organizado de la siguiente manera:
+      </p>
+      <ul class="list-disc list-inside mb-4 space-y-2">
+        <li><strong>Primer dígito:</strong> Identifica la provincia</li>
+        <li><strong>Segundo y tercer dígito:</strong> Identifican el cantón</li>
+        <li><strong>Cuarto y quinto dígito:</strong> Identifican el distrito</li>
+      </ul>
+      <p>
+        Utiliza nuestro buscador para encontrar rápidamente el código postal que necesitas.
+      </p>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,166 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { getProvinces, getCantonsByProvince, getDistrictsByProvince } from '../../../utils/data';
+import { sanitizeForUrl, getCantonUrl } from '../../../utils/url';
+
+export async function getStaticPaths() {
+  const provinces = getProvinces();
+  
+  return provinces.map(province => ({
+    params: { province: sanitizeForUrl(province) },
+    props: { provinceName: province }
+  }));
+}
+
+const { province } = Astro.params;
+const { provinceName } = Astro.props;
+
+const cantons = getCantonsByProvince(provinceName);
+const allDistricts = getDistrictsByProvince(provinceName);
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: provinceName }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `Códigos Postales de ${provinceName}`,
+  "description": `Todos los códigos postales de la provincia de ${provinceName}, Costa Rica, organizados por cantón y distrito`,
+  "url": `https://codigospostales.cr/codigo-postal/${province}/`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": cantons.length,
+    "itemListElement": cantons.map((canton, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Place",
+        "name": canton,
+        "containedInPlace": {
+          "@type": "AdministrativeArea",
+          "name": provinceName,
+          "addressCountry": "CR"
+        }
+      }
+    }))
+  }
+};
+---
+
+<Layout 
+  title={`Códigos Postales de ${provinceName} - Costa Rica`}
+  description={`Encuentra todos los códigos postales de ${provinceName}, Costa Rica. Lista completa de cantones y distritos con sus códigos postales.`}
+  jsonLd={jsonLd}
+>
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      Códigos Postales de {provinceName}
+    </h1>
+    <p class="text-lg text-gray-600">
+      Explora todos los cantones y distritos de la provincia de {provinceName}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main content -->
+    <div class="lg:col-span-2">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+        Cantones de {provinceName}
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {cantons.map(canton => {
+          const cantonDistricts = allDistricts.filter(d => d.canton === canton);
+          return (
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">
+                <a href={getCantonUrl(provinceName, canton)} class="hover:text-blue-600">
+                  {canton}
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-3">
+                {cantonDistricts.length} distrito{cantonDistricts.length !== 1 ? 's' : ''}
+              </p>
+              <div class="space-y-1">
+                {cantonDistricts.slice(0, 3).map(district => (
+                  <div class="text-sm text-gray-500">
+                    {district.district} - {district.postal_code}
+                  </div>
+                ))}
+                {cantonDistricts.length > 3 && (
+                  <div class="text-sm text-blue-600">
+                    +{cantonDistricts.length - 3} más...
+                  </div>
+                )}
+              </div>
+              <a 
+                href={getCantonUrl(provinceName, canton)}
+                class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mt-3"
+              >
+                Ver todos
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          Todos los Distritos
+        </h3>
+        <div class="max-h-96 overflow-y-auto">
+          <div class="space-y-2">
+            {allDistricts.map(district => (
+              <div class="flex justify-between items-center py-1 border-b border-gray-100 last:border-b-0">
+                <div class="text-sm">
+                  <div class="font-medium text-gray-900">{district.district}</div>
+                  <div class="text-gray-500">{district.canton}</div>
+                </div>
+                <div class="text-sm font-mono text-blue-600">
+                  {district.postal_code}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-16 bg-gray-50 rounded-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Preguntas Frecuentes sobre {provinceName}
+    </h2>
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          ¿Cuántos cantones tiene {provinceName}?
+        </h3>
+        <p class="text-gray-700">
+          La provincia de {provinceName} tiene {cantons.length} cantones con un total de {allDistricts.length} distritos.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          ¿Cómo están organizados los códigos postales en {provinceName}?
+        </h3>
+        <p class="text-gray-700">
+          Los códigos postales de {provinceName} siguen el sistema nacional costarricense de 5 dígitos, 
+          donde cada distrito tiene un código único que facilita la entrega de correspondencia.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout> 

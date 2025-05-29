@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Política de Privacidad' }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Política de Privacidad - Códigos Postales Costa Rica",
+  "description": "Política de privacidad del directorio de códigos postales de Costa Rica",
+  "url": "https://codigospostales.cr/politica-de-privacidad/"
+};
+---
+
+<Layout 
+  title="Política de Privacidad - Códigos Postales Costa Rica"
+  description="Conoce nuestra política de privacidad. Este sitio no recopila información personal de los usuarios."
+  jsonLd={jsonLd}
+>
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        Política de Privacidad
+      </h1>
+      
+      <div class="prose prose-lg text-gray-700 max-w-none">
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Información General
+          </h2>
+          <p class="mb-4">
+            Este sitio web no recopila información personal de los usuarios. No se utilizan cookies ni tecnologías de rastreo para almacenar datos personales.
+          </p>
+          <p class="mb-4">
+            Todo el contenido mostrado en este sitio es de carácter informativo y ha sido recopilado de fuentes públicas. No se solicita, almacena ni comparte información personal.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Datos Recopilados
+          </h2>
+          <p class="mb-4">
+            <strong>Códigos Postales Costa Rica</strong> no recopila ningún tipo de información personal identificable, incluyendo pero no limitado a:
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>Nombres y apellidos</li>
+            <li>Direcciones de correo electrónico</li>
+            <li>Números de teléfono</li>
+            <li>Direcciones físicas</li>
+            <li>Información de tarjetas de crédito</li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Cookies y Tecnologías de Rastreo
+          </h2>
+          <p class="mb-4">
+            Este sitio web no utiliza cookies de rastreo, cookies de análisis ni ninguna otra tecnología que permita identificar o rastrear a los usuarios de manera individual.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Fuentes de Información
+          </h2>
+          <p class="mb-4">
+            Toda la información sobre códigos postales mostrada en este sitio proviene de fuentes públicas oficiales, incluyendo:
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>Correos de Costa Rica</li>
+            <li>Instituto Nacional de Estadística y Censos (INEC)</li>
+            <li>Otras fuentes gubernamentales oficiales</li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Servicios de Terceros
+          </h2>
+          <p class="mb-4">
+            El sitio puede incluir enlaces a servicios externos como WhatsApp para compartir información. El uso de estos servicios está sujeto a las políticas de privacidad de las respectivas plataformas.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Cambios a Esta Política
+          </h2>
+          <p class="mb-4">
+            Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Los cambios serán efectivos inmediatamente después de su publicación en esta página.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Contacto
+          </h2>
+          <p class="mb-4">
+            Si tienes dudas o comentarios sobre esta política de privacidad, puedes contactarnos a través de los medios disponibles en el sitio web.
+          </p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg mt-8">
+          <p class="text-sm text-gray-600">
+            <strong>Última actualización:</strong> {new Date().toLocaleDateString('es-CR', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout> 

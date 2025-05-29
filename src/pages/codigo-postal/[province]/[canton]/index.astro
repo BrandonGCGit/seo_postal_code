@@ -1,0 +1,172 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
+import { postalCodes, getDistrictsByCanton } from '../../../../utils/data';
+import { sanitizeForUrl, getProvinceUrl, getDistrictUrl } from '../../../../utils/url';
+
+export async function getStaticPaths() {
+  const uniqueCombinations = [...new Set(postalCodes.map(entry => `${entry.province}|${entry.canton}`))];
+  
+  return uniqueCombinations.map(combination => {
+    const [province, canton] = combination.split('|');
+    return {
+      params: { 
+        province: sanitizeForUrl(province), 
+        canton: sanitizeForUrl(canton) 
+      },
+      props: { provinceName: province, cantonName: canton }
+    };
+  });
+}
+
+const { province, canton } = Astro.params;
+const { provinceName, cantonName } = Astro.props;
+
+const districts = getDistrictsByCanton(provinceName, cantonName);
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: provinceName, href: getProvinceUrl(provinceName) },
+  { label: cantonName }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `Códigos Postales de ${cantonName}, ${provinceName}`,
+  "description": `Todos los códigos postales del cantón de ${cantonName} en ${provinceName}, Costa Rica`,
+  "url": `https://codigospostales.cr/codigo-postal/${province}/${canton}/`,
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": districts.length,
+    "itemListElement": districts.map((district, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "PostalAddress",
+        "addressLocality": district.district,
+        "addressRegion": provinceName,
+        "addressCountry": "CR",
+        "postalCode": district.postal_code
+      }
+    }))
+  }
+};
+---
+
+<Layout 
+  title={`Códigos Postales de ${cantonName}, ${provinceName} - Costa Rica`}
+  description={`Encuentra todos los códigos postales del cantón de ${cantonName} en ${provinceName}, Costa Rica. Lista completa de distritos con sus códigos postales.`}
+  jsonLd={jsonLd}
+>
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      Códigos Postales de {cantonName}
+    </h1>
+    <p class="text-lg text-gray-600">
+      Cantón de {cantonName}, provincia de {provinceName}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main content -->
+    <div class="lg:col-span-2">
+      <h2 class="text-2xl font-semibold text-gray-900 mb-6">
+        Distritos de {cantonName}
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {districts.map(district => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">
+              <a href={getDistrictUrl(provinceName, cantonName, district.district)} class="hover:text-blue-600">
+                {district.district}
+              </a>
+            </h3>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-2xl font-bold text-blue-600">
+                {district.postal_code}
+              </span>
+              <span class="text-sm text-gray-500">
+                Código postal
+              </span>
+            </div>
+            <div class="space-y-2">
+              <div class="text-sm text-gray-600">
+                <strong>Cantón:</strong> {cantonName}
+              </div>
+              <div class="text-sm text-gray-600">
+                <strong>Provincia:</strong> {provinceName}
+              </div>
+            </div>
+            <a 
+              href={getDistrictUrl(provinceName, cantonName, district.district)}
+              class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mt-4"
+            >
+              Ver detalles
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">
+          Resumen del Cantón
+        </h3>
+        <div class="space-y-4">
+          <div class="text-center p-4 bg-blue-50 rounded-lg">
+            <div class="text-3xl font-bold text-blue-600">{districts.length}</div>
+            <div class="text-sm text-gray-600">Distrito{districts.length !== 1 ? 's' : ''}</div>
+          </div>
+          
+          <div>
+            <h4 class="font-medium text-gray-900 mb-2">Lista de Códigos</h4>
+            <div class="space-y-1 max-h-48 overflow-y-auto">
+              {districts.map(district => (
+                <div class="flex justify-between items-center py-1 text-sm">
+                  <span class="text-gray-700">{district.district}</span>
+                  <span class="font-mono text-blue-600">{district.postal_code}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-16 bg-gray-50 rounded-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">
+      Información sobre {cantonName}
+    </h2>
+    <div class="space-y-6">
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          ¿Cuántos distritos tiene {cantonName}?
+        </h3>
+        <p class="text-gray-700">
+          El cantón de {cantonName} en la provincia de {provinceName} tiene {districts.length} distrito{districts.length !== 1 ? 's' : ''}.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">
+          ¿Cómo usar los códigos postales de {cantonName}?
+        </h3>
+        <p class="text-gray-700">
+          Los códigos postales de {cantonName} son números de 5 dígitos que identifican cada distrito. 
+          Úsalos en formularios de envío, direcciones postales y servicios de entrega para asegurar 
+          que tu correspondencia llegue al destino correcto.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout> 

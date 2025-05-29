@@ -1,0 +1,157 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Términos y Condiciones' }
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Términos y Condiciones - Códigos Postales Costa Rica",
+  "description": "Términos y condiciones de uso del directorio de códigos postales de Costa Rica",
+  "url": "https://codigospostales.cr/terminos-y-condiciones/"
+};
+---
+
+<Layout 
+  title="Términos y Condiciones - Códigos Postales Costa Rica"
+  description="Conoce los términos y condiciones de uso de nuestro directorio de códigos postales de Costa Rica."
+  jsonLd={jsonLd}
+>
+  <Breadcrumb items={breadcrumbItems} />
+  
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+        Términos y Condiciones
+      </h1>
+      
+      <div class="prose prose-lg text-gray-700 max-w-none">
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Propósito del Sitio
+          </h2>
+          <p class="mb-4">
+            Este sitio web tiene como objetivo ofrecer información general sobre códigos postales de Costa Rica, basada en datos públicos disponibles en fuentes oficiales como Correos de Costa Rica o el Instituto Nacional de Estadística y Censos (INEC).
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Precisión de la Información
+          </h2>
+          <p class="mb-4">
+            No garantizamos que la información sea exacta, completa o actualizada. El uso del sitio es responsabilidad del usuario.
+          </p>
+          <p class="mb-4">
+            Aunque nos esforzamos por mantener la información actualizada y precisa, los códigos postales pueden cambiar con el tiempo debido a reorganizaciones administrativas, creación de nuevos distritos, o modificaciones en el sistema postal nacional.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Uso Permitido
+          </h2>
+          <p class="mb-4">
+            El contenido de este sitio web está disponible para uso personal y educativo. Los usuarios pueden:
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>Consultar códigos postales para uso personal</li>
+            <li>Compartir enlaces a páginas específicas</li>
+            <li>Utilizar la información para correspondencia personal</li>
+            <li>Referenciar el sitio en trabajos académicos con la debida atribución</li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Uso Prohibido
+          </h2>
+          <p class="mb-4">
+            Está prohibido el uso del contenido de este sitio con fines comerciales sin autorización. Específicamente, no está permitido:
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>Revender o comercializar la información contenida en el sitio</li>
+            <li>Crear bases de datos comerciales a partir de nuestro contenido</li>
+            <li>Utilizar sistemas automatizados para extraer grandes volúmenes de datos</li>
+            <li>Reproducir el sitio completo o partes sustanciales sin autorización</li>
+            <li>Utilizar la información para spam o marketing no solicitado</li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Limitación de Responsabilidad
+          </h2>
+          <p class="mb-4">
+            El acceso al sitio implica la aceptación de estos términos y condiciones. Al utilizar este sitio web, el usuario acepta que:
+          </p>
+          <ul class="list-disc list-inside mb-4 space-y-2">
+            <li>El sitio se proporciona "tal como está" sin garantías de ningún tipo</li>
+            <li>No somos responsables por errores en la información</li>
+            <li>No garantizamos la disponibilidad continua del servicio</li>
+            <li>El usuario es responsable de verificar la información antes de utilizarla para fines importantes</li>
+          </ul>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Enlaces Externos
+          </h2>
+          <p class="mb-4">
+            Este sitio puede contener enlaces a sitios web externos (como WhatsApp para compartir). No somos responsables por el contenido, políticas de privacidad, o prácticas de estos sitios externos.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Propiedad Intelectual
+          </h2>
+          <p class="mb-4">
+            Los códigos postales son información de dominio público proporcionada por entidades gubernamentales. El diseño, estructura y organización de este sitio web están protegidos por derechos de autor.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Modificaciones
+          </h2>
+          <p class="mb-4">
+            Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en esta página.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Ley Aplicable
+          </h2>
+          <p class="mb-4">
+            Estos términos y condiciones se rigen por las leyes de Costa Rica. Cualquier disputa será resuelta en los tribunales competentes de Costa Rica.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+            Contacto
+          </h2>
+          <p class="mb-4">
+            Si tienes preguntas sobre estos términos y condiciones, puedes contactarnos a través de los medios disponibles en el sitio web.
+          </p>
+        </div>
+
+        <div class="bg-blue-50 p-6 rounded-lg mt-8">
+          <p class="text-sm text-gray-600">
+            <strong>Última actualización:</strong> {new Date().toLocaleDateString('es-CR', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout> 

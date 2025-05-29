@@ -1,0 +1,776 @@
+[
+  {
+    "province": "San José",
+    "canton": "San José",
+    "district": "Carmen",
+    "postal_code": "10101"
+  },
+  {
+    "province": "San José",
+    "canton": "San José",
+    "district": "Merced",
+    "postal_code": "10102"
+  },
+  {
+    "province": "San José",
+    "canton": "San José",
+    "district": "Hospital",
+    "postal_code": "10103"
+  },
+  {
+    "province": "San José",
+    "canton": "San José",
+    "district": "Catedral",
+    "postal_code": "10104"
+  },
+  {
+    "province": "San José",
+    "canton": "Escazú",
+    "district": "Escazú",
+    "postal_code": "10201"
+  },
+  {
+    "province": "San José",
+    "canton": "Escazú",
+    "district": "San Antonio",
+    "postal_code": "10202"
+  },
+  {
+    "province": "San José",
+    "canton": "Escazú",
+    "district": "San Rafael",
+    "postal_code": "10203"
+  },
+  {
+    "province": "San José",
+    "canton": "Desamparados",
+    "district": "Desamparados",
+    "postal_code": "10301"
+  },
+  {
+    "province": "San José",
+    "canton": "Desamparados",
+    "district": "San Miguel",
+    "postal_code": "10302"
+  },
+  {
+    "province": "San José",
+    "canton": "Desamparados",
+    "district": "San Juan de Dios",
+    "postal_code": "10303"
+  },
+  {
+    "province": "San José",
+    "canton": "Puriscal",
+    "district": "Santiago",
+    "postal_code": "10401"
+  },
+  {
+    "province": "San José",
+    "canton": "Puriscal",
+    "district": "Mercedes Sur",
+    "postal_code": "10402"
+  },
+  {
+    "province": "San José",
+    "canton": "Tarrazú",
+    "district": "San Marcos",
+    "postal_code": "10501"
+  },
+  {
+    "province": "San José",
+    "canton": "Tarrazú",
+    "district": "San Lorenzo",
+    "postal_code": "10502"
+  },
+  {
+    "province": "San José",
+    "canton": "Aserrí",
+    "district": "Aserrí",
+    "postal_code": "10601"
+  },
+  {
+    "province": "San José",
+    "canton": "Aserrí",
+    "district": "Tarbaca",
+    "postal_code": "10602"
+  },
+  {
+    "province": "San José",
+    "canton": "Mora",
+    "district": "Colón",
+    "postal_code": "10701"
+  },
+  {
+    "province": "San José",
+    "canton": "Mora",
+    "district": "Guayabo",
+    "postal_code": "10702"
+  },
+  {
+    "province": "San José",
+    "canton": "Goicoechea",
+    "district": "Guadalupe",
+    "postal_code": "10801"
+  },
+  {
+    "province": "San José",
+    "canton": "Goicoechea",
+    "district": "San Francisco",
+    "postal_code": "10802"
+  },
+  {
+    "province": "San José",
+    "canton": "Goicoechea",
+    "district": "Calle Blancos",
+    "postal_code": "10803"
+  },
+  {
+    "province": "San José",
+    "canton": "Santa Ana",
+    "district": "Santa Ana",
+    "postal_code": "10901"
+  },
+  {
+    "province": "San José",
+    "canton": "Santa Ana",
+    "district": "Salitral",
+    "postal_code": "10902"
+  },
+  {
+    "province": "San José",
+    "canton": "Santa Ana",
+    "district": "Pozos",
+    "postal_code": "10903"
+  },
+  {
+    "province": "San José",
+    "canton": "Alajuelita",
+    "district": "Alajuelita",
+    "postal_code": "11001"
+  },
+  {
+    "province": "San José",
+    "canton": "Alajuelita",
+    "district": "San Josecito",
+    "postal_code": "11002"
+  },
+  {
+    "province": "San José",
+    "canton": "Vázquez de Coronado",
+    "district": "San Isidro",
+    "postal_code": "11101"
+  },
+  {
+    "province": "San José",
+    "canton": "Vázquez de Coronado",
+    "district": "San Rafael",
+    "postal_code": "11102"
+  },
+  {
+    "province": "San José",
+    "canton": "Acosta",
+    "district": "San Ignacio",
+    "postal_code": "11201"
+  },
+  {
+    "province": "San José",
+    "canton": "Tibás",
+    "district": "San Juan",
+    "postal_code": "11301"
+  },
+  {
+    "province": "San José",
+    "canton": "Tibás",
+    "district": "Cinco Esquinas",
+    "postal_code": "11302"
+  },
+  {
+    "province": "San José",
+    "canton": "Tibás",
+    "district": "Anselmo Llorente",
+    "postal_code": "11303"
+  },
+  {
+    "province": "San José",
+    "canton": "Moravia",
+    "district": "San Vicente",
+    "postal_code": "11401"
+  },
+  {
+    "province": "San José",
+    "canton": "Moravia",
+    "district": "San Jerónimo",
+    "postal_code": "11402"
+  },
+  {
+    "province": "San José",
+    "canton": "Moravia",
+    "district": "La Trinidad",
+    "postal_code": "11403"
+  },
+  {
+    "province": "San José",
+    "canton": "Montes de Oca",
+    "district": "San Pedro",
+    "postal_code": "11501"
+  },
+  {
+    "province": "San José",
+    "canton": "Montes de Oca",
+    "district": "Sabanilla",
+    "postal_code": "11502"
+  },
+  {
+    "province": "San José",
+    "canton": "Montes de Oca",
+    "district": "Mercedes",
+    "postal_code": "11503"
+  },
+  {
+    "province": "San José",
+    "canton": "Turrubares",
+    "district": "San Pablo",
+    "postal_code": "11601"
+  },
+  {
+    "province": "San José",
+    "canton": "Dota",
+    "district": "Santa María",
+    "postal_code": "11701"
+  },
+  {
+    "province": "San José",
+    "canton": "Curridabat",
+    "district": "Curridabat",
+    "postal_code": "11801"
+  },
+  {
+    "province": "San José",
+    "canton": "Curridabat",
+    "district": "Granadilla",
+    "postal_code": "11802"
+  },
+  {
+    "province": "San José",
+    "canton": "Curridabat",
+    "district": "Sánchez",
+    "postal_code": "11803"
+  },
+  {
+    "province": "San José",
+    "canton": "Curridabat",
+    "district": "Tirrases",
+    "postal_code": "11804"
+  },
+  {
+    "province": "San José",
+    "canton": "Pérez Zeledón",
+    "district": "San Isidro de El General",
+    "postal_code": "11901"
+  },
+  {
+    "province": "San José",
+    "canton": "Pérez Zeledón",
+    "district": "El General",
+    "postal_code": "11902"
+  },
+  {
+    "province": "San José",
+    "canton": "León Cortés Castro",
+    "district": "San Pablo",
+    "postal_code": "12001"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Alajuela",
+    "district": "Alajuela",
+    "postal_code": "20101"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Alajuela",
+    "district": "San José",
+    "postal_code": "20102"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Alajuela",
+    "district": "Carrizal",
+    "postal_code": "20103"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "San Ramón",
+    "district": "San Ramón",
+    "postal_code": "20201"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "San Ramón",
+    "district": "Santiago",
+    "postal_code": "20202"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Grecia",
+    "district": "Grecia",
+    "postal_code": "20301"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Grecia",
+    "district": "San Isidro",
+    "postal_code": "20302"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "San Mateo",
+    "district": "San Mateo",
+    "postal_code": "20401"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Atenas",
+    "district": "Atenas",
+    "postal_code": "20501"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Atenas",
+    "district": "Jesús",
+    "postal_code": "20502"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Naranjo",
+    "district": "Naranjo",
+    "postal_code": "20601"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Naranjo",
+    "district": "San Miguel",
+    "postal_code": "20602"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Palmares",
+    "district": "Palmares",
+    "postal_code": "20701"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Poás",
+    "district": "San Pedro",
+    "postal_code": "20801"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Orotina",
+    "district": "Orotina",
+    "postal_code": "20901"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "San Carlos",
+    "district": "Quesada",
+    "postal_code": "21001"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "San Carlos",
+    "district": "Florencia",
+    "postal_code": "21002"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Zarcero",
+    "district": "Zarcero",
+    "postal_code": "21101"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Valverde Vega",
+    "district": "Sarchí Norte",
+    "postal_code": "21201"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Upala",
+    "district": "Upala",
+    "postal_code": "21301"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Los Chiles",
+    "district": "Los Chiles",
+    "postal_code": "21401"
+  },
+  {
+    "province": "Alajuela",
+    "canton": "Guatuso",
+    "district": "San Rafael",
+    "postal_code": "21501"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Cartago",
+    "district": "Oriental",
+    "postal_code": "30101"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Cartago",
+    "district": "Occidental",
+    "postal_code": "30102"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Cartago",
+    "district": "Carmen",
+    "postal_code": "30103"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Paraíso",
+    "district": "Paraíso",
+    "postal_code": "30201"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Paraíso",
+    "district": "Santiago",
+    "postal_code": "30202"
+  },
+  {
+    "province": "Cartago",
+    "canton": "La Unión",
+    "district": "Tres Ríos",
+    "postal_code": "30301"
+  },
+  {
+    "province": "Cartago",
+    "canton": "La Unión",
+    "district": "San Diego",
+    "postal_code": "30302"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Jiménez",
+    "district": "Juan Viñas",
+    "postal_code": "30401"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Turrialba",
+    "district": "Turrialba",
+    "postal_code": "30501"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Turrialba",
+    "district": "La Suiza",
+    "postal_code": "30502"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Alvarado",
+    "district": "Pacayas",
+    "postal_code": "30601"
+  },
+  {
+    "province": "Cartago",
+    "canton": "Oreamuno",
+    "district": "San Rafael",
+    "postal_code": "30701"
+  },
+  {
+    "province": "Cartago",
+    "canton": "El Guarco",
+    "district": "El Tejar",
+    "postal_code": "30801"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Heredia",
+    "district": "Heredia",
+    "postal_code": "40101"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Heredia",
+    "district": "Mercedes",
+    "postal_code": "40102"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Barva",
+    "district": "Barva",
+    "postal_code": "40201"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Barva",
+    "district": "San Pedro",
+    "postal_code": "40202"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Santo Domingo",
+    "district": "Santo Domingo",
+    "postal_code": "40301"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Santo Domingo",
+    "district": "San Vicente",
+    "postal_code": "40302"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Santa Bárbara",
+    "district": "Santa Bárbara",
+    "postal_code": "40401"
+  },
+  {
+    "province": "Heredia",
+    "canton": "San Rafael",
+    "district": "San Rafael",
+    "postal_code": "40501"
+  },
+  {
+    "province": "Heredia",
+    "canton": "San Isidro",
+    "district": "San Isidro",
+    "postal_code": "40601"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Belén",
+    "district": "San Antonio",
+    "postal_code": "40701"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Flores",
+    "district": "San Joaquín",
+    "postal_code": "40801"
+  },
+  {
+    "province": "Heredia",
+    "canton": "San Pablo",
+    "district": "San Pablo",
+    "postal_code": "40901"
+  },
+  {
+    "province": "Heredia",
+    "canton": "Sarapiquí",
+    "district": "Puerto Viejo",
+    "postal_code": "41001"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Liberia",
+    "district": "Liberia",
+    "postal_code": "50101"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Liberia",
+    "district": "Cañas Dulces",
+    "postal_code": "50102"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Nicoya",
+    "district": "Nicoya",
+    "postal_code": "50201"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Nicoya",
+    "district": "Mansión",
+    "postal_code": "50202"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Santa Cruz",
+    "district": "Santa Cruz",
+    "postal_code": "50301"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Santa Cruz",
+    "district": "Bolsón",
+    "postal_code": "50302"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Bagaces",
+    "district": "Bagaces",
+    "postal_code": "50401"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Carrillo",
+    "district": "Filadelfia",
+    "postal_code": "50501"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Cañas",
+    "district": "Cañas",
+    "postal_code": "50601"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Abangares",
+    "district": "Las Juntas",
+    "postal_code": "50701"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Tilarán",
+    "district": "Tilarán",
+    "postal_code": "50801"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Nandayure",
+    "district": "Carmona",
+    "postal_code": "50901"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "La Cruz",
+    "district": "La Cruz",
+    "postal_code": "51001"
+  },
+  {
+    "province": "Guanacaste",
+    "canton": "Hojancha",
+    "district": "Hojancha",
+    "postal_code": "51101"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Puntarenas",
+    "district": "Puntarenas",
+    "postal_code": "60101"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Puntarenas",
+    "district": "Pitahaya",
+    "postal_code": "60102"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Esparza",
+    "district": "Espíritu Santo",
+    "postal_code": "60201"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Buenos Aires",
+    "district": "Buenos Aires",
+    "postal_code": "60301"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Montes de Oro",
+    "district": "Miramar",
+    "postal_code": "60401"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Osa",
+    "district": "Puerto Cortés",
+    "postal_code": "60501"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Quepos",
+    "district": "Quepos",
+    "postal_code": "60601"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Golfito",
+    "district": "Golfito",
+    "postal_code": "60701"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Coto Brus",
+    "district": "San Vito",
+    "postal_code": "60801"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Parrita",
+    "district": "Parrita",
+    "postal_code": "60901"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Corredores",
+    "district": "Corredor",
+    "postal_code": "61001"
+  },
+  {
+    "province": "Puntarenas",
+    "canton": "Garabito",
+    "district": "Jacó",
+    "postal_code": "61101"
+  },
+  {
+    "province": "Limón",
+    "canton": "Limón",
+    "district": "Limón",
+    "postal_code": "70101"
+  },
+  {
+    "province": "Limón",
+    "canton": "Limón",
+    "district": "Valle La Estrella",
+    "postal_code": "70102"
+  },
+  {
+    "province": "Limón",
+    "canton": "Pococí",
+    "district": "Guápiles",
+    "postal_code": "70201"
+  },
+  {
+    "province": "Limón",
+    "canton": "Pococí",
+    "district": "Jiménez",
+    "postal_code": "70202"
+  },
+  {
+    "province": "Limón",
+    "canton": "Siquirres",
+    "district": "Siquirres",
+    "postal_code": "70301"
+  },
+  {
+    "province": "Limón",
+    "canton": "Talamanca",
+    "district": "Bratsi",
+    "postal_code": "70401"
+  },
+  {
+    "province": "Limón",
+    "canton": "Matina",
+    "district": "Matina",
+    "postal_code": "70501"
+  },
+  {
+    "province": "Limón",
+    "canton": "Guácimo",
+    "district": "Guácimo",
+    "postal_code": "70601"
+  }
+] 
