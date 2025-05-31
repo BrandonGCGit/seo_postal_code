@@ -1,0 +1,328 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Git Commit Best Practices for Cursor
+
+## 🎯 Commit Message Guidelines
+
+### Structure
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+- **feat**: New features
+- **fix**: Bug fixes
+- **docs**: Documentation changes
+- **style**: Code formatting (no logic changes)
+- **refactor**: Code restructuring (no new features or bug fixes)
+- **perf**: Performance improvements
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks (build, dependencies, etc.)
+- **ci**: CI/CD changes
+- **build**: Build system changes
+
+### Examples
+```bash
+feat(search): add cascading dropdown postal code search
+fix(auth): resolve user session timeout issue
+docs(readme): update installation instructions
+style(components): format search bar component
+refactor(utils): extract URL sanitization logic
+perf(api): optimize postal codes data loading
+test(search): add unit tests for dropdown component
+chore(deps): update Astro to version 5.8.0
+```
+
+## 📏 Message Best Practices
+
+### Do's ✅
+- **Use imperative mood**: "Add feature" not "Added feature"
+- **Keep first line under 50 characters**
+- **Capitalize first letter**
+- **No period at the end of subject line**
+- **Use body to explain WHY, not WHAT**
+- **Separate subject and body with blank line**
+
+### Don'ts ❌
+- Don't use generic messages like "fix stuff" or "update"
+- Don't commit commented-out code
+- Don't include unrelated changes in one commit
+- Don't commit secrets or sensitive data
+- Don't commit broken code to main branch
+
+## 🔄 When to Commit
+
+### Commit Frequently When:
+- ✅ A single feature/fix is complete
+- ✅ Tests are passing
+- ✅ Code compiles without errors
+- ✅ You've reached a stable checkpoint
+- ✅ Before switching branches
+- ✅ At end of work session
+
+### Good Commit Sizes:
+- **Small**: Single bug fix, typo correction
+- **Medium**: New component, feature addition
+- **Large**: Major refactoring (break into smaller commits when possible)
+
+## 🌿 Branching Strategy
+
+### Branch Naming
+```bash
+feature/add-enhanced-search
+fix/postal-code-validation
+docs/update-api-documentation
+refactor/extract-data-utils
+hotfix/critical-security-patch
+```
+
+### Workflow
+```bash
+# Create feature branch
+git checkout -b feature/new-component
+
+# Work and commit frequently
+git add .
+git commit -m "feat(component): add basic structure"
+git commit -m "feat(component): add styling and responsive design"
+git commit -m "test(component): add unit tests"
+
+# Push to remote
+git push origin feature/new-component
+
+# Create pull request when ready
+```
+
+## 🚀 Cursor-Specific Workflows
+
+### Using Cursor's Git Integration
+
+#### 1. Staging Files
+- **Ctrl/Cmd + Shift + G**: Open Git panel
+- **Stage individual files**: Click `+` next to file
+- **Stage all changes**: Click `+` next to "Changes"
+- **Unstage**: Click `-` next to staged file
+
+#### 2. Committing in Cursor
+- **Write descriptive commit message** in the message box
+- **Use Cursor's AI suggestions** for commit messages when helpful
+- **Review changes** in the diff view before committing
+- **Commit**: Click commit button or `Ctrl/Cmd + Enter`
+
+#### 3. Pushing Changes
+- **Push immediately**: Click push button after commit
+- **Push all commits**: Use `git push` in terminal
+- **Force push** (use carefully): `git push --force-with-lease`
+
+### Terminal Commands in Cursor
+```bash
+# Quick status check
+git status
+
+# Add specific files
+git add src/components/SearchBar.astro
+git add public/postal-codes.json
+
+# Commit with message
+git commit -m "feat(search): implement postal code lookup"
+
+# Push to remote
+git push origin main
+
+# Pull latest changes
+git pull origin main
+```
+
+## 📋 Pre-Commit Checklist
+
+Before each commit, ensure:
+- [ ] **Code compiles** without errors
+- [ ] **Tests pass** (run `npm test` if applicable)
+- [ ] **Linting passes** (run `npm run lint`)
+- [ ] **No console.log** statements left in production code
+- [ ] **No TODO comments** without GitHub issues
+- [ ] **Dependencies updated** in package.json if needed
+- [ ] **Documentation updated** if public API changed
+- [ ] **Environment variables** not committed
+
+## 🔧 Common Scenarios
+
+### Scenario 1: Adding New Feature
+```bash
+# Create branch
+git checkout -b feature/user-authentication
+
+# Make changes and commit incrementally
+git add src/components/Login.astro
+git commit -m "feat(auth): add login component structure"
+
+git add src/utils/auth.ts
+git commit -m "feat(auth): implement authentication utilities"
+
+git add src/pages/login.astro
+git commit -m "feat(auth): create login page"
+
+# Push and create PR
+git push origin feature/user-authentication
+```
+
+### Scenario 2: Bug Fix
+```bash
+# Create hotfix branch
+git checkout -b fix/postal-code-validation
+
+# Fix the issue
+git add src/utils/validation.ts
+git commit -m "fix(validation): handle empty postal code input
+
+- Add null check before regex validation
+- Return appropriate error message
+- Add unit test for edge case
+
+Fixes #123"
+
+git push origin fix/postal-code-validation
+```
+
+### Scenario 3: Documentation Update
+```bash
+git add README.md
+git commit -m "docs(readme): update setup instructions
+
+- Add Node.js version requirement
+- Include environment setup steps
+- Fix broken links to examples"
+
+git push origin main
+```
+
+## 🎨 Advanced Git with Cursor
+
+### Interactive Staging
+```bash
+# Stage parts of files
+git add -p
+
+# Interactive rebase (clean up commits)
+git rebase -i HEAD~3
+```
+
+### Stashing Work
+```bash
+# Stash current changes
+git stash
+
+# Apply stash later
+git stash pop
+
+# Named stash
+git stash save "work in progress on search feature"
+```
+
+### Viewing History
+```bash
+# Pretty log
+git log --oneline --graph --decorate
+
+# File history
+git log --follow -- src/components/SearchBar.astro
+```
+
+## ⚠️ Common Mistakes to Avoid
+
+1. **Committing directly to main/master**
+   ```bash
+   # Wrong
+   git checkout main
+   git commit -m "quick fix"
+   
+   # Right
+   git checkout -b fix/quick-issue
+   git commit -m "fix(issue): resolve quick issue"
+   ```
+
+2. **Large commits with mixed changes**
+   ```bash
+   # Wrong
+   git commit -m "fix everything and add new feature"
+   
+   # Right
+   git commit -m "fix(validation): handle edge cases"
+   git commit -m "feat(search): add advanced filters"
+   ```
+
+3. **Not testing before committing**
+   ```bash
+   # Always run before commit
+   npm run build
+   npm run test
+   npm run lint
+   ```
+
+## 📊 Measuring Good Commits
+
+### Healthy Repository Signs:
+- ✅ Commits are focused and atomic
+- ✅ Commit messages are descriptive
+- ✅ Regular commits (daily activity)
+- ✅ Clean git history
+- ✅ No reverted commits in main branch
+- ✅ Meaningful branch names
+
+### Tools for Better Commits:
+- **Conventional Commits**: Standardized commit format
+- **Commitizen**: Interactive commit message prompts
+- **Husky**: Git hooks for pre-commit checks
+- **Lint-staged**: Run linters on staged files
+
+## 🔗 Quick Reference
+
+### Daily Workflow
+```bash
+# Start work
+git pull origin main
+git checkout -b feature/my-feature
+
+# Work iteratively
+# ... make changes ...
+git add .
+git commit -m "feat(component): add initial structure"
+
+# ... more changes ...
+git add .
+git commit -m "feat(component): add styling"
+
+# Finish
+git push origin feature/my-feature
+# Create PR in GitHub/GitLab
+```
+
+### Emergency Fixes
+```bash
+# Quick hotfix
+git checkout main
+git pull origin main
+git checkout -b hotfix/critical-issue
+# ... fix issue ...
+git commit -m "fix(critical): resolve security vulnerability"
+git push origin hotfix/critical-issue
+# Create immediate PR and merge
+```
+
+---
+
+## 💡 Remember
+
+> "A good commit message serves at least three important purposes:
+> 1. It speeds up the reviewing process
+> 2. It helps us write good release notes
+> 3. It helps future maintainers understand why a change was made"
+
+**Happy committing! 🚀**
