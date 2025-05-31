@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SearchBar from '../components/SearchBar.astro';
+import EnhancedSearchBar from '../components/EnhancedSearchBar.astro';
 import { getProvinces } from '../utils/data';
 import { getProvinceUrl } from '../utils/url';
 
@@ -33,7 +33,8 @@ const jsonLd = {
       Encuentra el código postal de cualquier distrito de Costa Rica
     </p>
     
-    <SearchBar />
+    <!-- Enhanced Search with Cascading Dropdowns -->
+    <EnhancedSearchBar />
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
@@ -80,6 +81,69 @@ const jsonLd = {
       <p>
         Utiliza nuestro buscador para encontrar rápidamente el código postal que necesitas.
       </p>
+    </div>
+  </div>
+
+  <div class="mt-16 bg-green-50 rounded-lg p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">
+      Cómo Buscar tu Código Postal
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center mb-3">
+          <div class="bg-blue-100 rounded-full p-2 mr-3">
+            <span class="text-blue-600 font-bold text-lg">1</span>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Selecciona Provincia</h3>
+        </div>
+        <p class="text-gray-600">
+          Comienza eligiendo la provincia donde se encuentra el distrito que buscas.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center mb-3">
+          <div class="bg-green-100 rounded-full p-2 mr-3">
+            <span class="text-green-600 font-bold text-lg">2</span>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Elige el Cantón</h3>
+        </div>
+        <p class="text-gray-600">
+          Una vez seleccionada la provincia, elige el cantón correspondiente de la lista filtrada.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center mb-3">
+          <div class="bg-purple-100 rounded-full p-2 mr-3">
+            <span class="text-purple-600 font-bold text-lg">3</span>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Encuentra el Distrito</h3>
+        </div>
+        <p class="text-gray-600">
+          Finalmente, selecciona el distrito específico para obtener su código postal.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-lg font-semibold text-gray-900 mb-3">
+        ¿Qué puedes hacer con el resultado?
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+          <span class="text-gray-700">Copiar código postal al portapapeles</span>
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+          </svg>
+          <span class="text-gray-700">Ver información detallada del distrito</span>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
