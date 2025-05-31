@@ -1,0 +1,271 @@
+import { getProvinces, getCantonsByProvince, getDistrictsByCanton, findDistrict } from '../utils/data';
+
+// Get initial provinces data
+const provinces = getProvinces();
+
+// Pre-compute all canton and district mappings for faster client-side access
+const allCantonsByProvince: Record<string, string[]> = {};
+const allDistrictsByCanton: Record<string, string[]> = {};
+const allPostalCodeData: Record<string, { postalCode: string; province: string; canton: string; district: string }> = {};
+
+provinces.forEach(province => {
+  const cantons = getCantonsByProvince(province);
+  allCantonsByProvince[province] = cantons;
+  
+  cantons.forEach(canton => {
+    const cantonKey = `${province}|${canton}`;
+    const districts = getDistrictsByCanton(province, canton);
+    allDistrictsByCanton[cantonKey] = districts.map(d => d.district);
+    
+    districts.forEach(district => {
+      const districtKey = `${province}|${canton}|${district.district}`;
+      allPostalCodeData[districtKey] = {
+        postalCode: district.postal_code,
+        province: district.province,
+        canton: district.canton,
+        district: district.district
+      };
+    });
+  });
+});
+
+<div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-lg shadow-lg p-6">
+    <h2 class="text-2xl font-semibold text-gray-900 mb-6 text-center">
+      Buscar Código Postal
+    </h2>
+    
+    <!-- Cascading Dropdowns -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <!-- Province Dropdown -->
+      <div>
+        <label for="province-select" class="block text-sm font-medium text-gray-700 mb-2">
+          Provincia
+        </label>
+        <select 
+          id="province-select" 
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        >
+          <option value="">Seleccionar provincia</option>
+          {provinces.map((province) => (
+            <option value={province}>{province}</option>
+          ))}
+        </select>
+      </div>
+
+      <!-- Canton Dropdown -->
+      <div>
+        <label for="canton-select" class="block text-sm font-medium text-gray-700 mb-2">
+          Cantón
+        </label>
+        <select 
+          id="canton-select" 
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          disabled
+        >
+          <option value="">Seleccionar cantón</option>
+        </select>
+      </div>
+
+      <!-- District Dropdown -->
+      <div>
+        <label for="district-select" class="block text-sm font-medium text-gray-700 mb-2">
+          Distrito
+        </label>
+        <select 
+          id="district-select" 
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          disabled
+        >
+          <option value="">Seleccionar distrito</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result-section" class="hidden">
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div class="text-center mb-4">
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">
+            Código Postal Encontrado
+          </h3>
+          <div class="text-4xl font-bold text-blue-600 mb-2" id="result-postal-code">
+            <!-- Postal code will be inserted here -->
+          </div>
+          <div class="text-gray-600" id="result-location">
+            <!-- Location will be inserted here -->
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <!-- Copy Button -->
+          <button 
+            id="copy-button"
+            class="inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            Copiar Código
+          </button>
+
+          <!-- Visit Page Button -->
+          <a 
+            id="visit-button"
+            href="#"
+            class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+            Ver Página Completa
+          </a>
+        </div>
+
+        <!-- Copy Success Message -->
+        <div id="copy-success" class="hidden mt-3 text-center">
+          <div class="inline-flex items-center text-green-600">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            ¡Código postal copiado al portapapeles!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ allCantonsByProvince, allDistrictsByCanton, allPostalCodeData }}>
+  const provinceSelect = document.getElementById('province-select');
+  const cantonSelect = document.getElementById('canton-select');
+  const districtSelect = document.getElementById('district-select');
+  const resultSection = document.getElementById('result-section');
+  const resultPostalCode = document.getElementById('result-postal-code');
+  const resultLocation = document.getElementById('result-location');
+  const copyButton = document.getElementById('copy-button');
+  const visitButton = document.getElementById('visit-button');
+  const copySuccess = document.getElementById('copy-success');
+
+  let currentResult = null;
+
+  // Province selection handler
+  provinceSelect.addEventListener('change', function() {
+    const selectedProvince = this.value;
+    
+    // Reset subsequent dropdowns
+    cantonSelect.innerHTML = '<option value="">Seleccionar cantón</option>';
+    districtSelect.innerHTML = '<option value="">Seleccionar distrito</option>';
+    cantonSelect.disabled = !selectedProvince;
+    districtSelect.disabled = true;
+    resultSection.classList.add('hidden');
+
+    if (selectedProvince && allCantonsByProvince[selectedProvince]) {
+      allCantonsByProvince[selectedProvince].forEach(canton => {
+        const option = document.createElement('option');
+        option.value = canton;
+        option.textContent = canton;
+        cantonSelect.appendChild(option);
+      });
+    }
+  });
+
+  // Canton selection handler
+  cantonSelect.addEventListener('change', function() {
+    const selectedProvince = provinceSelect.value;
+    const selectedCanton = this.value;
+    
+    // Reset district dropdown
+    districtSelect.innerHTML = '<option value="">Seleccionar distrito</option>';
+    districtSelect.disabled = !selectedCanton;
+    resultSection.classList.add('hidden');
+
+    if (selectedProvince && selectedCanton) {
+      const cantonKey = `${selectedProvince}|${selectedCanton}`;
+      if (allDistrictsByCanton[cantonKey]) {
+        allDistrictsByCanton[cantonKey].forEach(district => {
+          const option = document.createElement('option');
+          option.value = district;
+          option.textContent = district;
+          districtSelect.appendChild(option);
+        });
+      }
+    }
+  });
+
+  // District selection handler
+  districtSelect.addEventListener('change', function() {
+    const selectedProvince = provinceSelect.value;
+    const selectedCanton = cantonSelect.value;
+    const selectedDistrict = this.value;
+
+    if (selectedProvince && selectedCanton && selectedDistrict) {
+      const districtKey = `${selectedProvince}|${selectedCanton}|${selectedDistrict}`;
+      const result = allPostalCodeData[districtKey];
+
+      if (result) {
+        currentResult = result;
+        
+        // Update result display
+        resultPostalCode.textContent = result.postalCode;
+        resultLocation.textContent = `${result.district}, ${result.canton}, ${result.province}`;
+        
+        // Update visit button URL
+        const districtUrl = `/codigo-postal/${sanitizeForUrl(result.province)}/${sanitizeForUrl(result.canton)}/${sanitizeForUrl(result.district)}/`;
+        visitButton.href = districtUrl;
+        
+        // Show result section
+        resultSection.classList.remove('hidden');
+        
+        // Scroll to result
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } else {
+      resultSection.classList.add('hidden');
+      currentResult = null;
+    }
+  });
+
+  // Copy button handler
+  copyButton.addEventListener('click', async function() {
+    if (currentResult) {
+      try {
+        await navigator.clipboard.writeText(currentResult.postalCode);
+        
+        // Show success message
+        copySuccess.classList.remove('hidden');
+        
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+          copySuccess.classList.add('hidden');
+        }, 3000);
+      } catch (err) {
+        // Fallback for browsers that don't support clipboard API
+        const textArea = document.createElement('textarea');
+        textArea.value = currentResult.postalCode;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        // Show success message
+        copySuccess.classList.remove('hidden');
+        setTimeout(() => {
+          copySuccess.classList.add('hidden');
+        }, 3000);
+      }
+    }
+  });
+
+  // Helper function to sanitize URLs (same as server-side function)
+  function sanitizeForUrl(text) {
+    return text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/[^a-z0-9-]/g, '') // Remove special characters except hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+      .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+  }
+</script> 
