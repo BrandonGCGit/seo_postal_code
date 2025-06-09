@@ -11,15 +11,6 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
-      serialize(item) {
-        return {
-          url: item.url,
-          changefreq: item.changefreq || 'weekly',
-          lastmod: item.lastmod || new Date(),
-          priority: item.priority || 0.7,
-        };
-      },
     })
   ],
   vite: {
